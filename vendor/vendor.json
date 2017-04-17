@@ -1,0 +1,13 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "YXbtH6GO1RuAAlko5O0cPAorCu0=",
+			"path": "github.com/tealeg/xlsx",
+			"revision": "47e33bbbedd12ad4f29abb9e7e894b3a1969c0fc",
+			"revisionTime": "2017-02-22T16:59:48Z"
+		}
+	],
+	"rootPath": "github.com/harboe/test2"
+}
