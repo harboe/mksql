@@ -104,7 +104,7 @@ func Dir(dir string) (*Parser, error) {
 
 func (p *Parser) Write(w io.Writer) error {
 	for _, data := range p.inputs {
-		if err := p.tmpl.Execute(w, data); err != nil {
+		if err := p.tmpl.Execute(w, noEscape(data)); err != nil {
 			return err
 		}
 		if _, err := w.Write([]byte{'\n'}); err != nil {
@@ -112,6 +112,16 @@ func (p *Parser) Write(w io.Writer) error {
 		}
 	}
 	return nil
+}
+
+func noEscape(dic map[string]string) map[string]template.HTML {
+	res := map[string]template.HTML{}
+
+	for key, val := range dic {
+		res[key] = template.HTML(val)
+	}
+
+	return res
 }
 
 func readSQL(file string) (string, error) {
@@ -181,6 +191,7 @@ func readXLSX(file string) ([]map[string]string, error) {
 					entry[key] = ""
 				} else {
 					val := row.Cells[i].Value
+					val = strings.Replace(val, "_x000D_", "", -1)
 					entry[key] = strings.TrimSpace(val)
 					hasVal = len(val) > 0
 				}
